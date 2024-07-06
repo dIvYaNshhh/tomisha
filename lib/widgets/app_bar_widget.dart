@@ -1,71 +1,73 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_sizer/flutter_sizer.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   final double height;
   final double width;
-  final double? fontSize;
-  final String title;
-  final VoidCallback? onTap;
-  final List<Widget>? actions;
   final bool isLeading;
 
   const AppBarWidget({
     super.key,
-    this.height = kToolbarHeight + 13,
+    this.height = kToolbarHeight,
     this.width = double.infinity,
-    this.actions,
-    this.title = '',
-    this.fontSize,
-    this.onTap,
     this.isLeading = true,
   });
 
   @override
-  Size get preferredSize => Size(width, height);
+  Size get preferredSize => Size(width, height + 10.dp);
 
   @override
   Widget build(BuildContext context) {
-    return ClipPath(
-      clipper: BottomRoundedAppBarClipper(),
-      child: Container(
-        width: double.infinity,
-        height: 200,
-        color: Colors.white, // AppBar background color
-        child: AppBar(
-          centerTitle: true,
-          actions: actions,
-          toolbarHeight: height,
-          backgroundColor: Colors.white,
-          title: Text(
-            title,
-            style: TextStyle(
-                fontSize: fontSize ?? 20.dp,
-                fontWeight: FontWeight.w400,
-                color: Colors.black),
+    return Container(
+      width: double.infinity,
+      height: preferredSize.height,
+      color: Colors.white, // AppBar background color
+      child: Column(
+        children: [
+          Container(
+            height: 5.dp,
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                  colors: [
+                    Color(0xFF319795),
+                    Color(0xFF3182CE),
+                  ],
+                  begin: FractionalOffset(0.0, 0.3),
+                  end: FractionalOffset(0.3, 1.0),
+                  stops: [0.0, 1.0],
+                  tileMode: TileMode.clamp),
+            ),
           ),
-        ),
+          AppBar(
+            centerTitle: true,
+            actions: [
+              TextButton(
+                onPressed: () {},
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 19),
+                  child: Text(
+                    "Login",
+                    style: GoogleFonts.lato(
+                      color: const Color(0xff319795),
+                      letterSpacing: 0.84.dp,
+                      fontSize: 17.dp,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+            toolbarHeight: height,
+            backgroundColor: Colors.white,
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.vertical(
+                bottom: Radius.circular(16),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
-}
-
-class BottomRoundedAppBarClipper extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    final path = Path();
-    path.lineTo(0, size.height);
-    path.quadraticBezierTo(
-      size.width / 2,
-      size.height + 30,
-      size.width,
-      size.height,
-    );
-    path.lineTo(size.width, 0);
-    path.close();
-    return path;
-  }
-
-  @override
-  bool shouldReclip(CustomClipper<Path> oldClipper) => false;
 }

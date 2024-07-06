@@ -4,6 +4,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tomisha/utils/image_resources.dart';
 import 'package:tomisha/widgets/app_bar_widget.dart';
+import 'package:tomisha/widgets/segment_tab_bar.dart';
+import 'package:tomisha/widgets/wavy_baackground.dart';
 
 class LoginDesktop extends StatelessWidget {
   const LoginDesktop({super.key});
@@ -12,23 +14,7 @@ class LoginDesktop extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBarWidget(
-        actions: [
-          TextButton(
-              onPressed: () {},
-              child: Padding(
-                padding: const EdgeInsets.only(right: 19),
-                child: Text(
-                  "Login",
-                  style: GoogleFonts.lato(
-                    color: const Color(0xff319795),
-                    letterSpacing: 0.84,
-                    fontSize: 14,
-                  ),
-                ),
-              ))
-        ],
-      ),
+      appBar: const AppBarWidget(),
       body: Stack(
         children: [
           SingleChildScrollView(
@@ -62,36 +48,36 @@ class LoginDesktop extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Padding(
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.2,
                               padding: const EdgeInsets.only(top: 40),
                               child: Text(
-                                'Deine Job\n website',
+                                'Deine Job\nwebsite',
                                 textAlign: TextAlign.start,
                                 style: GoogleFonts.lato(
                                   color: const Color(0xff2D3748),
                                   letterSpacing: 1.26,
-                                  fontSize: 42,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize:
+                                      MediaQuery.of(context).size.width * 0.04,
                                 ),
                               ),
                             ),
                             const SizedBox(
-                              height: 20,
+                              height: 30,
                             ),
                             Container(
+                              width: MediaQuery.of(context).size.width * 0.2,
                               decoration: const BoxDecoration(
                                 gradient: LinearGradient(
-                                  begin: Alignment.centerLeft,
-                                  end: Alignment.centerRight,
-                                  colors: [
-                                    Color(0xFF319795),
-                                    Color(0xFF3182CE),
-                                  ],
-                                  stops: [0.0, 1.0],
-                                  tileMode: TileMode.clamp,
-                                  transform: GradientRotation(95 *
-                                      3.1415927 /
-                                      180), // Convert degrees to radians
-                                ),
+                                    colors: [
+                                      Color(0xFF319795),
+                                      Color(0xFF3182CE),
+                                    ],
+                                    begin: FractionalOffset(0.0, 0.7),
+                                    end: FractionalOffset(0.7, 1.0),
+                                    stops: [0.0, 1.0],
+                                    tileMode: TileMode.clamp),
                                 borderRadius: BorderRadius.all(
                                   Radius.circular(16.0), // Rounded top corners
                                 ),
@@ -104,7 +90,7 @@ class LoginDesktop extends StatelessWidget {
                                   style: GoogleFonts.lato(
                                     color: Colors.white,
                                     letterSpacing: 1.26,
-                                    fontSize: 14,
+                                    fontSize: 12.dp,
                                   ),
                                 ),
                               ),
@@ -136,172 +122,214 @@ class LoginDesktop extends StatelessWidget {
                     ),
                   ),
                 ),
+                const SegmentTabBar(),
                 Padding(
                   padding: const EdgeInsets.only(
                       left: 120, right: 120, top: 30, bottom: 30),
                   child: Text(
-                    'Drei einfache Schritte zu deinem neuen Job',
+                    'Drei einfache Schritte \nzu deinem neuen Job',
                     textAlign: TextAlign.center,
                     style: GoogleFonts.lato(
                       color: const Color(0xff4A5568),
-                      fontSize: 25,
+                      fontSize: 40.dp,
                     ),
                   ),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.1,
                 ),
                 Stack(
                   children: [
                     Column(
                       children: [
                         Container(
-                          height: 370,
                           width: double.infinity,
                           margin: EdgeInsets.zero,
                           padding: EdgeInsets.zero,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
+                          child: Stack(
                             children: [
-                              const SizedBox(
-                                height: 20,
+                              SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.5,
                               ),
-                              SvgPicture.asset(
-                                ImageResources
-                                    .mobileSectionOne, // Path to your SVG file
+                              Positioned(
+                                left: MediaQuery.of(context).size.width * 0.5,
+                                child: SvgPicture.asset(
+                                  ImageResources
+                                      .webSectionOne, // Path to your SVG file
+                                  fit: BoxFit.contain,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.2,
+                                  height:
+                                      MediaQuery.of(context).size.width * 0.2,
+                                ),
+                              ),
+                              Positioned(
+                                left: MediaQuery.of(context).size.width * 0.15,
+                                top: MediaQuery.of(context).size.height * 0.1,
+                                child: RichText(
+                                  text: TextSpan(
+                                    children: [
+                                      TextSpan(
+                                        text: '1.',
+                                        style: GoogleFonts.lato(
+                                          color: const Color(0xff718096),
+                                          letterSpacing: 1.26,
+                                          fontSize: 100.dp,
+                                        ),
+                                      ),
+                                      TextSpan(
+                                        text: '  Erstellen dein Lebenslauf',
+                                        style: GoogleFonts.lato(
+                                          color: const Color(0xff718096),
+                                          letterSpacing: 1.26,
+                                          fontSize: 24.dp,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.zero,
+                          child: Stack(
+                            children: [
+                              SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.5,
+                              ),
+                              SineWaveBackground(
+                                width: double.infinity,
+                                height:
+                                    MediaQuery.of(context).size.height * 0.5,
+                                painter: SineWavePainter(),
+                              ),
+                              Positioned(
+                                left: MediaQuery.of(context).size.width * 0.59,
+                                top: MediaQuery.of(context).size.width * 0.13,
+                                child: RichText(
+                                  text: TextSpan(
+                                    children: [
+                                      TextSpan(
+                                        text: '2.',
+                                        style: GoogleFonts.lato(
+                                          color: const Color(0xff718096),
+                                          letterSpacing: 1.26,
+                                          fontSize: 100.dp,
+                                        ),
+                                      ),
+                                      TextSpan(
+                                        text: '  Erstellen dein Lebenslauf',
+                                        style: GoogleFonts.lato(
+                                          color: const Color(0xff718096),
+                                          letterSpacing: 1.26,
+                                          fontSize: 24.dp,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              Positioned(
+                                left: MediaQuery.of(context).size.width * 0.25,
+                                top: MediaQuery.of(context).size.width * 0.1,
+                                child: SvgPicture.asset(
+                                  ImageResources
+                                      .webSectionTwo, // Path to your SVG file
+                                  fit: BoxFit.fill,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.14,
+                                  height:
+                                      MediaQuery.of(context).size.width * 0.14,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.zero,
+                          padding: EdgeInsets.zero,
+                          child: Stack(
+                            children: [
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width * 1,
+                                height:
+                                    MediaQuery.of(context).size.height * 0.7,
+                              ),
+                              Positioned(
+                                left: MediaQuery.of(context).size.width * 0.20,
+                                top: MediaQuery.of(context).size.width * 0.1,
+                                child: Container(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.2,
+                                  height:
+                                      MediaQuery.of(context).size.width * 0.2,
+                                  decoration: BoxDecoration(
+                                    color: const Color(0xffF7FAFC),
+                                    borderRadius: BorderRadius.circular(
+                                        MediaQuery.of(context).size.width *
+                                            0.2 /
+                                            2),
+                                  ),
+                                ),
+                              ),
+                              Positioned(
+                                left: MediaQuery.of(context).size.width * 0.25,
+                                top: MediaQuery.of(context).size.width * 0.1,
+                                child: RichText(
+                                  text: TextSpan(
+                                    children: [
+                                      TextSpan(
+                                        text: '3.',
+                                        style: GoogleFonts.lato(
+                                          color: const Color(0xff718096),
+                                          letterSpacing: 1.26,
+                                          fontSize: 100.dp,
+                                        ),
+                                      ),
+                                      TextSpan(
+                                        text: '  Erstellen dein Lebenslauf',
+                                        style: GoogleFonts.lato(
+                                          color: const Color(0xff718096),
+                                          letterSpacing: 1.26,
+                                          fontSize: 24.dp,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              Positioned(
+                                left: MediaQuery.of(context).size.width * 0.6,
+                                top: MediaQuery.of(context).size.width * 0.1,
+                                child: SvgPicture.asset(
+                                  ImageResources
+                                      .webSectionThree, // Path to your SVG file
 
-                                fit: BoxFit.fill,
-                              ),
-                              RichText(
-                                text: TextSpan(
-                                  children: [
-                                    TextSpan(
-                                      text: '1.',
-                                      style: GoogleFonts.lato(
-                                        color: const Color(0xff718096),
-                                        letterSpacing: 1.26,
-                                        fontSize: 156,
-                                      ),
-                                    ),
-                                    TextSpan(
-                                      text: '  Erstellen dein Lebenslauf',
-                                      style: GoogleFonts.lato(
-                                        color: const Color(0xff718096),
-                                        letterSpacing: 1.26,
-                                        fontSize: 19,
-                                      ),
-                                    ),
-                                  ],
+                                  fit: BoxFit.fill,
                                 ),
                               ),
                             ],
                           ),
-                        ),
-                        Container(
-                          height: 370,
-                          width: double.infinity,
-                          margin: EdgeInsets.zero,
-                          padding: EdgeInsets.only(right: 40, bottom: 10),
-                          decoration: const BoxDecoration(
-                            gradient: LinearGradient(
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
-                              colors: [
-                                Color(0xFFE6FFFA), // #E6FFFA color
-                                Color(0xFFEBF4FF), // #EBF4FF color
-                              ],
-                              stops: [0.0, 1.0],
-                              transform: GradientRotation(134 *
-                                  3.1415927 /
-                                  180), // Convert degrees to radians
-                            ),
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              RichText(
-                                text: TextSpan(
-                                  children: [
-                                    TextSpan(
-                                      text: '2.',
-                                      style: GoogleFonts.lato(
-                                        color: const Color(0xff718096),
-                                        letterSpacing: 1.26,
-                                        fontSize: 156,
-                                      ),
-                                    ),
-                                    TextSpan(
-                                      text: '  Erstellen dein Lebenslauf',
-                                      style: GoogleFonts.lato(
-                                        color: const Color(0xff718096),
-                                        letterSpacing: 1.26,
-                                        fontSize: 19,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              SvgPicture.asset(
-                                ImageResources
-                                    .mobileSectionTwo, // Path to your SVG file
-                                fit: BoxFit.fill,
-                              ),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          height: 377,
-                          width: double.infinity,
-                          margin: EdgeInsets.zero,
-                          padding: EdgeInsets.zero,
-                          child: Column(
-                            children: [
-                              RichText(
-                                text: TextSpan(
-                                  children: [
-                                    TextSpan(
-                                      text: '3.',
-                                      style: GoogleFonts.lato(
-                                        color: const Color(0xff718096),
-                                        letterSpacing: 1.26,
-                                        fontSize: 156,
-                                      ),
-                                    ),
-                                    TextSpan(
-                                      text: '  Erstellen dein Lebenslauf',
-                                      style: GoogleFonts.lato(
-                                        color: const Color(0xff718096),
-                                        letterSpacing: 1.26,
-                                        fontSize: 19,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              SvgPicture.asset(
-                                ImageResources
-                                    .mobileSectionThree, // Path to your SVG file
-
-                                fit: BoxFit.fill,
-                              ),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          height: 150,
-                          width: double.infinity,
-                          margin: EdgeInsets.zero,
-                          padding: EdgeInsets.zero,
                         ),
                       ],
                     ),
                     Positioned(
-                      left: MediaQuery.of(context).size.width * 0.4,
-                      top: MediaQuery.of(context).size.width * 0.2,
+                      left: MediaQuery.of(context).size.width * 0.18,
+                      top: MediaQuery.of(context).size.width * 0.15,
                       child: SvgPicture.asset(
                         ImageResources.upArrow, // Path to your SVG file
+                        fit: BoxFit.fill,
+                      ),
+                    ),
+                    Positioned(
+                      left: MediaQuery.of(context).size.width * 0.3,
+                      top: MediaQuery.of(context).size.width * 0.52,
+                      child: SvgPicture.asset(
+                        ImageResources.downArrow, // Path to your SVG file
                         fit: BoxFit.fill,
                       ),
                     )
